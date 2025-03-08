@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=3 uid="uid://b8ixr32sfu3on"]
+
+[ext_resource type="Script" path="res://pato.gd" id="1_4fvf0"]
+[ext_resource type="Texture2D" uid="uid://df3mhs627dvaf" path="res://DuckHunt/pato/cima/sprite_0.png" id="1_jgijj"]
+[ext_resource type="Texture2D" uid="uid://c20cwkat6pxx0" path="res://DuckHunt/pato/cima/sprite_1.png" id="2_2uj3u"]
+[ext_resource type="Texture2D" uid="uid://j26iuwbjpasn" path="res://DuckHunt/pato/cima/sprite_2.png" id="3_wsxeq"]
+[ext_resource type="Texture2D" uid="uid://c5u2fjqnl044h" path="res://DuckHunt/pato/lado/sprite_0.png" id="4_i1fwg"]
+[ext_resource type="Texture2D" uid="uid://bcyvgqrh20uud" path="res://DuckHunt/pato/lado/sprite_1.png" id="5_3g402"]
+[ext_resource type="Texture2D" uid="uid://dptvytdifvqbe" path="res://DuckHunt/pato/lado/sprite_2.png" id="6_5lv6l"]
+[ext_resource type="Texture2D" uid="uid://dotgc2bhqqamd" path="res://DuckHunt/pato/morte/0.png" id="7_gljjh"]
+[ext_resource type="Texture2D" uid="uid://h6euppuaog1p" path="res://DuckHunt/pato/morte/1.png" id="8_ubut3"]
+[ext_resource type="Texture2D" uid="uid://d23o77i0uc22l" path="res://DuckHunt/pato/morte/2.png" id="9_elnaw"]
+[ext_resource type="Texture2D" uid="uid://dxelk5owadpe0" path="res://DuckHunt/pato/morte/3.png" id="10_udodi"]
+[ext_resource type="Texture2D" uid="uid://ceh6wmx85bo4j" path="res://DuckHunt/pato/susto.png" id="11_yraup"]
+[ext_resource type="AudioStream" uid="uid://ce614agjp1dlh" path="res://DuckHunt/sons/pato.wav" id="13_7sdng"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_48dqu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jgijj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2uj3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wsxeq")
+}],
+"loop": true,
+"name": &"cima",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_i1fwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3g402")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5lv6l")
+}],
+"loop": true,
+"name": &"lado",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_gljjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ubut3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_elnaw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_udodi")
+}],
+"loop": true,
+"name": &"morte",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_yraup")
+}],
+"loop": true,
+"name": &"susto",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bfebh"]
+radius = 54.0
+
+[node name="Pato" type="CharacterBody2D"]
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_4fvf0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(57, 56)
+sprite_frames = SubResource("SpriteFrames_48dqu")
+animation = &"cima"
+autoplay = "cima"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(54, 52)
+shape = SubResource("CircleShape2D_bfebh")
+
+[node name="Movimento" type="Timer" parent="."]
+autostart = true
+
+[node name="Anima" type="Timer" parent="."]
+autostart = true
+
+[node name="Morte" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_7sdng")
+
+[node name="Quack" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Movimento" to="." method="_on_movimento_timeout"]
+[connection signal="timeout" from="Anima" to="." method="_on_anima_timeout"]
+[connection signal="timeout" from="Morte" to="." method="_on_morte_timeout"]
+[connection signal="timeout" from="Quack" to="." method="_on_quack_timeout"]

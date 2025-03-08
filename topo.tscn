@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://rce3kpqwkqb2"]
+
+[ext_resource type="Texture2D" uid="uid://1i12n2mhxr80" path="res://DuckHunt/topo.png" id="1_fc5hk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvorq"]
+size = Vector2(770, 20)
+
+[node name="Topo" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fc5hk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hvorq")
